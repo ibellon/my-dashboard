@@ -1,36 +1,29 @@
-import NotFound from "@/app/not-found";
-import { Pokemon } from "@/app/pokemons";
-import { Metadata } from "next";
+
+import { Pokemon, PokemonsResponse } from "@/app/pokemons";
 import Image from 'next/image';
 import { notFound } from "next/navigation";
 
 interface Props {
-   params: Promise<{ id: string }>;
+   params: Promise<{ name: string }>;
 }
 
 //!Sólo se ejecuta en Build Time
 export async function generateStaticParams() {
 
-  const staticPokemons = Array.from({length: 151}).map((v, i) => `${i + 1}`); 
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`);
+    const data: PokemonsResponse = await res.json();
+    
+    const resultado = data.results.map(p => ({
+      name: p.name
+    }));
 
-  return staticPokemons.map(id => ({
-    id: id
-  }));
-
-  // return [
-  //   {id: '1'},
-  //   {id: '2'},
-  //   {id: '3'},
-  //   {id: '4'},  
-  //   {id: '5'},
-  //   {id: '6'},
-  // ] 
+    return resultado;
 }
 
 export async function generateMetadata({params}:Props): Promise<Metadata> {
  try{
-    const { id } = await params;
-    const pokemon = await getPokemon(id);
+    const { name } = await params;
+    const pokemon = await getPokemon(name);
 
     return {
       title: `#${pokemon.id} - ${pokemon.name}`,
@@ -43,12 +36,11 @@ export async function generateMetadata({params}:Props): Promise<Metadata> {
       description: "Se ha producido un error: "+error
     }
   }  
- 
 }
 
-const getPokemon = async(id: string): Promise<Pokemon> => {
+const getPokemon = async(name: string): Promise<Pokemon> => {
   
-    const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`,{
+    const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`,{
         //cache: 'force-cache', //TODO Cambiar en un futuro
         next: {
           revalidate: 60 * 60 * 30 * 6
@@ -61,11 +53,11 @@ const getPokemon = async(id: string): Promise<Pokemon> => {
 
 export default async function PokemomPage({params}:Props) {
    
-    const { id } = await params;
-    const pokemon = await getPokemon(id);
+    const { name } = await params;
+    const pokemon = await getPokemon(name);
 
     params.then(p => {
-        console.log("Número Pokemon", p.id);
+        console.log("Nombre del Pokemon", p.name);
     });
 
    return (
