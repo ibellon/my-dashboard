@@ -9,16 +9,35 @@ interface Props {
     value?: number
 }
 
+export interface CounterResponse {
+    method: string,
+    count: number   
+}
+
+const getApiCounter = async():Promise<CounterResponse> => {
+    const data = await fetch('/api/counter').then(res => res.json());
+    return data;
+}
+    
+
 export const CartCounter = ({value = 0}:Props) => {
 
     const count = useAppSelector(p => p.counter.count);
     const dispatch = useDispatch();
 
     //const [count, setCount] = useState(value);
+    // useEffect(() => {
+    //     dispatch(initCounterState(value))
+    // });
+    console.log("UseEffect", count);
+
     useEffect(() => {
-        dispatch(initCounterState(value))
+       getApiCounter().then(res => {
+        console.log("Llamando al API", res.count);
+        dispatch(initCounterState(res.count));
+       })
     });
-    
+   
     return (
         <>
                 <span className="text-9xl">{count}</span>

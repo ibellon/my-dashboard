@@ -13,7 +13,7 @@ export const WidgetsGrid = () => {
         <div className="flex flex-wrap p-2 items-center justify-center">
             <SimpleWidget title={ contador.toString() }
             subtitle="Productos agregados"
-            href=""
+            href="/dashboard/counter"
             label="Contador"
             icon={<IoCartOutline size={70} className="text-blue-600"></IoCartOutline>}>
             </SimpleWidget>

@@ -18,7 +18,7 @@ export const counterSlice = createSlice({
     initCounterState(state, action:PayloadAction<number>){
       if(state.isReady) return;
 
-      state.count = state.count;
+      state.count = action.payload;
       state.isReady = true;
     },
 
