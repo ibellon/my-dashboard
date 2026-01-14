@@ -4,8 +4,8 @@ import { PokemonGrid } from "@/app/pokemons/components/PokemonGrid";
 import Image from 'next/image';
 
 export const metadata = {
-  title: "151 Pokemons",
-  descripcion: "Listado con los primeros 151 Pokemons"
+  title: "Pokemons Favoritos",
+  descripcion: "Listado con los Pokemons Favoritos"
 };
 
 const getPokemons = async(limit = 20, offset = 0):Promise<SimplePokemon[]> =>{
@@ -24,16 +24,14 @@ const getPokemons = async(limit = 20, offset = 0):Promise<SimplePokemon[]> =>{
   
 }
 
-export default async function PokemonsPage() {
-
-  const pokemons = await getPokemons(151);
+export default async function FavoritosPage() {
 
   return (
     <div className="flex flex-col">
 
-      <span className="text-5xl my-3">Listado Pokemons <small className="text-blue-500">estático</small></span>
+      <span className="text-5xl my-3">Pokemons Favoritos <small className="text-blue-500">Global State</small></span>
       
-      <PokemonGrid pokemons={pokemons}></PokemonGrid>   
+      <PokemonGrid pokemons={[]}></PokemonGrid>   
 
     </div>
   );
