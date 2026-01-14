@@ -2,6 +2,7 @@ import Image from "next/image";
 import { IoBrowsers, IoBrowsersOutline, IoCalculator, IoFootball, IoHeartOutline, IoLogoReact } from "react-icons/io5";
 import { SidebarMenuItem } from "./sidebarMenuItem";
 
+
 const menuItems = [
     {
         path: "/dashboard/main", 

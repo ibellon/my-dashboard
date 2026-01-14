@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { SideBar } from './components/sidebar';
+import { SideBar } from './components';
  
 export default function NotFound() {
   return (
