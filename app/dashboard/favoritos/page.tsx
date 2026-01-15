@@ -1,7 +1,9 @@
 import { PokemonsResponse, SimplePokemon } from "@/app/pokemons/";
 import { PokemonGrid } from "@/app/pokemons/components/PokemonGrid";
+import { NoFavorites, PokemonFavorite } from "@/app/pokemons/components/PokemonFavorite";
 
 import Image from 'next/image';
+import { IoHeartOutline } from "react-icons/io5";
 
 export const metadata = {
   title: "Pokemons Favoritos",
@@ -26,13 +28,16 @@ const getPokemons = async(limit = 20, offset = 0):Promise<SimplePokemon[]> =>{
 
 export default async function FavoritosPage() {
 
+  const pokemons = await getPokemons(151);
+
   return (
     <div className="flex flex-col">
 
       <span className="text-5xl my-3">Pokemons Favoritos <small className="text-blue-500">Global State</small></span>
       
-      <PokemonGrid pokemons={[]}></PokemonGrid>   
-
+      <PokemonFavorite></PokemonFavorite>
+      
     </div>
   );
 }
+

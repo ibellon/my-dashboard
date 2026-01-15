@@ -7,18 +7,32 @@ interface PokemonsState {
 }
 
 const initialState: PokemonsState = {
-  '1': {id: '1', name: 'bulbasaur'},
+  // '1': {id: '1', name: 'bulbasaur'},
+  // '2': {id: '2', name: 'chamaleon'},
+  // '3': {id: '3', name: 'superturtle'},
 }
 
 const pokemonsSlice = createSlice({
   name: 'pokemons',
   initialState,
   reducers: {
-    
+
+    toogleFavorite(state, action:PayloadAction<SimplePokemon>) {
+      const pokemon = action.payload;
+      const {id} = pokemon;
+
+      if(!!state[id]) {
+        delete state[id];
+        return;
+      }
+
+      state[id] = pokemon;
+    }
+
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { } = pokemonsSlice.actions
+export const { toogleFavorite } = pokemonsSlice.actions
 
 export default pokemonsSlice.reducer
