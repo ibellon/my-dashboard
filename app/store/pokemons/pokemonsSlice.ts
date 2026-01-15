@@ -23,10 +23,13 @@ const pokemonsSlice = createSlice({
 
       if(!!state[id]) {
         delete state[id];
-        return;
+        //return;
+      }
+      else {
+         state[id] = pokemon;
       }
 
-      state[id] = pokemon;
+      localStorage.setItem('pokemons-favoritos', JSON.stringify(state))
     }
 
   },

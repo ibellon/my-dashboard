@@ -1,6 +1,6 @@
 import { PokemonsResponse, SimplePokemon } from "@/app/pokemons/";
 import { PokemonGrid } from "@/app/pokemons/components/PokemonGrid";
-import { NoFavorites, PokemonFavorite } from "@/app/pokemons/components/PokemonFavorite";
+import { NoFavorites, FavoritePokemons } from "@/app/pokemons/components/FavoritePokemons";
 
 import Image from 'next/image';
 import { IoHeartOutline } from "react-icons/io5";
@@ -35,7 +35,7 @@ export default async function FavoritosPage() {
 
       <span className="text-5xl my-3">Pokemons Favoritos <small className="text-blue-500">Global State</small></span>
       
-      <PokemonFavorite></PokemonFavorite>
+      <FavoritePokemons></FavoritePokemons>
       
     </div>
   );

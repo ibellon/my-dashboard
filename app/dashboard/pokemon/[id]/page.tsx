@@ -65,7 +65,7 @@ export default async function PokemomPage({params}:Props) {
     const pokemon = await getPokemon(id);
 
     params.then(p => {
-        console.log("Número Pokemon", p.id);
+        console.log("Número Pokemon", pokemon.id);
     });
 
    return (
