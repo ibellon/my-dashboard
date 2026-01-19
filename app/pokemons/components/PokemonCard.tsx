@@ -15,8 +15,10 @@ interface Props {
 export const PokemonCard = ({pokemon}:Props) => {
 
     const {id, name} = pokemon;
-    const isFavorite = useAppSelector(state => !!state.pokemons[id]);
+    const isFavorite = useAppSelector(state => !!state.pokemons.favorites[id]);
     const dispatch = useAppDispatch();
+
+    //console.log("PokemonCard", isFavorite);
 
     const onToggle = () =>{
         dispatch(toogleFavorite(pokemon));
@@ -27,12 +29,15 @@ export const PokemonCard = ({pokemon}:Props) => {
                 <div className="flex flex-col bg-white rounded overflow-hidden shadow-lg">
 
                     <div className="flex flex-col items-center justify-center text-center p-6 bg-gray-800 border-b">
-                        <Image className="size-auto" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
-                            width={100}
-                            height={100}
-                            alt={name}
-                            priority={false}>
-                        </Image>
+                        <Image
+                            key={pokemon.id}
+                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`}
+                            width={0}
+                            height={0}
+                            alt={pokemon.name}
+                            priority={false}
+                            style={{ width: 'auto', height: '100px' }}
+                        />
 
                     <p className="pt-2 text-lg font-semibold text-gray-50 capitalize">{name}</p>
                     <p className="text-sm text-gray-100">John@Doe.com</p>

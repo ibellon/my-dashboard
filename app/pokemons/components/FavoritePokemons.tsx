@@ -8,20 +8,19 @@ import { SimplePokemon } from "../interfaces/simple-pokemon";
 
 export const FavoritePokemons = () => {
 
-    //const favoritos = useAppSelector(state => Object.values(state.pokemons));
-    //const [pokemons] = useState(favoritos);
-    const [pokemons, setPokemons] = useState<SimplePokemon[]>([]);
+    const todos = useAppSelector(state => Object.values(state.pokemons.favorites));
+    var [favoritos, setFavoritos] = useState<SimplePokemon[]>([]);
 
     useEffect(() => {
         const storedFavorites = JSON.parse(localStorage.getItem('pokemons-favoritos') ?? "{}");
-        setPokemons(Object.values(storedFavorites));
-        console.log("storedFavorites: ", pokemons);
+        setFavoritos(Object.values(storedFavorites));
+        favoritos = (Object.values(storedFavorites));
     }, [])
 
     return (
-        pokemons.length == 0
+        todos.length == 0
         ? <NoFavorites></NoFavorites>
-        : <PokemonGrid pokemons={pokemons}></PokemonGrid>
+        : <PokemonGrid pokemons={favoritos}></PokemonGrid>
     )
 }
 
